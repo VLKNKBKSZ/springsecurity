@@ -13,9 +13,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .anyRequest()// any endpoint with any headers and body
+                .authenticated() // should be with username password/jwt token
                 .and()
-                .httpBasic();
+                .httpBasic();// in this case with basic auth username:password
     }
 }
