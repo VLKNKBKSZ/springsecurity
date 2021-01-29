@@ -34,20 +34,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails james = User.builder()
                 .username("james")
                 .password(passwordEncoder.encode("password"))
-                .roles(STUDENT.name())//ROLE_STUDENT
+                .authorities(STUDENT.getGrantedAuthorities())
+//                .roles(STUDENT.name())//ROLE_STUDENT
                 .build();
 
 
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("admin"))
-                .roles(ADMIN.name())//ROLE_ADMIN
+                .authorities(ADMIN.getGrantedAuthorities())
+//                .roles(ADMIN.name())//ROLE_ADMIN
                 .build();
 
         UserDetails adminTrainee = User.builder()
                 .username("admint")
                 .password(passwordEncoder.encode("admint"))
-                .roles(ADMIN_TRAINEE.name())//ROLE_ADMIN_TRAINEE
+                .authorities(ADMIN_TRAINEE.getGrantedAuthorities())
+//                .roles(ADMIN_TRAINEE.name())//ROLE_ADMIN_TRAINEE
                 .build();
         return new InMemoryUserDetailsManager(admin,adminTrainee,james);
     }
@@ -61,9 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/**")
                 .hasRole(STUDENT.name())
-                .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(STUDENT_WRITE.name())
-                .antMatchers(HttpMethod.POST,"/management/api/**").hasAuthority(STUDENT_WRITE.name())
-                .antMatchers(HttpMethod.PUT,"/management/api/**").hasAuthority(STUDENT_WRITE.name())
+                .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(STUDENT_WRITE.getPermission())
+                .antMatchers(HttpMethod.POST,"/management/api/**").hasAuthority(STUDENT_WRITE.getPermission())
+                .antMatchers(HttpMethod.PUT,"/management/api/**").hasAuthority(STUDENT_WRITE.getPermission())
                 .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ADMIN.name(), ADMIN_TRAINEE.name())
                 .anyRequest()
                 .authenticated()
