@@ -1,4 +1,4 @@
-package com.vlkn.spring.security.controllers;
+package com.vlkn.spring.security.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
