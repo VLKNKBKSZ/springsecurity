@@ -8,7 +8,8 @@ import static com.vlkn.spring.security.security.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
     STUDENT(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(COURSE_WRITE,COURSE_READ,STUDENT_WRITE,STUDENT_READ));
+    ADMIN(Sets.newHashSet(COURSE_WRITE,COURSE_READ,STUDENT_WRITE,STUDENT_READ)),
+    ADMIN_TRAINEE(Sets.newHashSet(COURSE_READ,STUDENT_READ));
 
     private final Set<ApplicationUserPermission> permissions;
 
