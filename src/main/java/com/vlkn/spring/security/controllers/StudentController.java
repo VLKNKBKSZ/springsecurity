@@ -1,6 +1,7 @@
 package com.vlkn.spring.security.controllers;
 
 import com.vlkn.spring.security.domain.Student;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,9 @@ public class StudentController {
             new Student(3, "Ibrahim Bond"),
             new Student(4, "Yigit Bond")
     );
+
     @GetMapping(path = "{studentId}")
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
     public Student getStudent(@PathVariable("studentId") Integer studentId) {
         return STUDENTS
                 .stream()
