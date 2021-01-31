@@ -59,6 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+// use CSRF protection for any request that could be processed by a browser by normal users.
+// If you are only creating a service that is used by non-browser clients,
+// you will likely want to disable CSRF protection
+//                .csrf()
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/css/*", "/js/*").permitAll()
