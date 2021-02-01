@@ -75,7 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // The session ids will be lost.
                 .formLogin()
                 .loginPage("/login")
-                .permitAll();
+                .permitAll()
+                .defaultSuccessUrl("/courses",true);
                 // CANT LOGOUT with basic auth.
 //                .httpBasic();
 
