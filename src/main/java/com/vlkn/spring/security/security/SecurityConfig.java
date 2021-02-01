@@ -73,7 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Postgres,Redis
                 // By default spring uses inmemoryDB for session ID, when you restart the server,
                 // The session ids will be lost.
-                .formLogin();
+                .formLogin()
+                .loginPage("/login")
+                .permitAll();
                 // CANT LOGOUT with basic auth.
 //                .httpBasic();
 
