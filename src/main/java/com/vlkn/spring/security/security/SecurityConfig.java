@@ -67,22 +67,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .csrf()
 //                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "/index", "/css/*", "/js/*").permitAll()
-                .anyRequest()
-                .authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/", "/index", "/css/*", "/js/*").permitAll()
+                    .anyRequest()
+                    .authenticated()
                 .and()
                 // Postgres,Redis
                 // By default spring uses inmemoryDB for session ID, when you restart the server,
                 // The session ids will be lost.
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .defaultSuccessUrl("/courses",true)
+                    .loginPage("/login")
+                    .permitAll()
+                    .defaultSuccessUrl("/courses",true)
+                    .passwordParameter("password")
+                    .usernameParameter("username")
+                    .and()
+                    .rememberMe()
+                    .rememberMeParameter("remember-me")
+                    .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
+                    .key("secureverysecuresupersecure")
                 .and()
-                .rememberMe()
-                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
-                .key("secureverysecuresupersecure");// defaults to 2 weeks.
+                .logout()
+                    .logoutUrl("/logout")
+                    .clearAuthentication(true)
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID","remember-me")
+                    .logoutSuccessUrl("/login");// defaults to 2 weeks.
                 // CANT LOGOUT with basic auth.
 //                .httpBasic();
 
